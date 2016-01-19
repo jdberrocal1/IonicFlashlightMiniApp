@@ -41,7 +41,7 @@
             autoSwitchOff();
           }else{
             $timeout.cancel($scope.timer);
-            $scope.timer=null;
+            //$scope.timer=null;
           }
 
           $scope.msg= $scope.isOn ? 'Off' : 'On';
@@ -64,8 +64,8 @@
               function (success) { /* success */ },
               function (error) { /* error */ });
           $timeout.cancel($scope.timer);
-          $scope.timer=null;
-        }, 5000);
+          //$scope.timer=null;
+        }, 300000);
       }
       
     }
