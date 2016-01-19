@@ -4,10 +4,12 @@
     '$scope',
     '$cordovaFlashlight',
     '$ionicPopup',
+    '$timeout',
     function (
       $scope,
       $cordovaFlashlight,
-      $ionicPopup
+      $ionicPopup,
+      $timeout
       )
     {
       $scope.avail=false;
@@ -31,11 +33,17 @@
         });      
       }
 
-      
-
       $scope.toggle = function toggle(){
         if($scope.avail){
           $scope.isOn=!$scope.isOn;
+
+          if($scope.isOn){
+            autoSwitchOff();
+          }else{
+            $timeout.cancel($scope.timer);
+            $scope.timer=null;
+          }
+
           $scope.msg= $scope.isOn ? 'Off' : 'On';
           $cordovaFlashlight.toggle()
             .then(function (success) {
@@ -46,6 +54,19 @@
         }
       }
 
+
+      var autoSwitchOff = function(){
+        $scope.timer=$timeout(function(){
+          $scope.isOn=false;
+          $scope.msg='On';
+          $cordovaFlashlight.switchOff()
+            .then(
+              function (success) { /* success */ },
+              function (error) { /* error */ });
+          $timeout.cancel($scope.timer);
+          $scope.timer=null;
+        }, 5000);
+      }
       
     }
   ])
