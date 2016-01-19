@@ -1,1 +1,7 @@
 /* Empty. Add your own CSS if you like */
+.lamp{
+	top:40%;
+	height: 75px;
+	padding-top: 20px;
+	margin: 30px;
+}
